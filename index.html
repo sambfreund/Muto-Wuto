@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Muto&Wuto</title>
+</head>
+<body>
+    <section>
+        <div>
+            <canvas id="canvas" width="600" height="600">
+                Yo stuff doesn't like this stuff.
+            </canvas>
+        </div>
+
+        <script>
+            var canvas;       //the background
+            var wuto;         //pawn 1
+            var muto;         //pawn 2
+            var mdx = 10;     //x-axis move distance
+            var mdy = 10;     //y-axis move distance
+            var mx = 200;     //x-axis starting position
+            var my = 200;
+            var dx = 10;      //x-axis move distance
+            var dy = 10;      //y-axis move distance
+            var x = 300;      //x-axis starting position
+            var y = 300;      //y-axis starting position
+            var wall;         //well... its a wall
+            var WIDTH = 600;  //canvas width
+            var HEIGHT = 600; //canvas height
+
+            function circle(x,y,r) {
+                wuto.beginPath();
+                wuto.arc(x, y, r, 0, Math.PI*2, true);
+                wuto.fill();
+            }
+            function circle2(x,y,r) {
+                muto.beginPath();
+                muto.arc(mx, my, r, 0, Math.PI*2, true);
+                muto.fill();
+            }
+            function wallbuild() {
+                wall.beginPath();
+                wall.rect(x,y,w,h);
+                wall.fill();
+            }
+
+            function rect(x,y,w,h) {
+                wuto.beginPath();
+                wuto.rect(x,y,w,h);
+                wuto.closePath();
+                wuto.fill();
+                wuto.stroke();
+            }
+
+            function clear() {
+                wuto.clearRect(0, 0, WIDTH, HEIGHT);
+                muto.clearRect(0, 0, WIDTH, HEIGHT);
+            }
+
+            function init() {
+                canvas = document.getElementById("canvas");
+                wuto = canvas.getContext("2d");
+                muto = canvas.getContext("2d");
+                return setInterval(draw, 10);
+            }
+
+            function doKeyDown(evt) {
+                switch(evt.keyCode) {
+                    case 38:  // Up arrow was pressed
+                    if(y - dy > 0) {
+                        y -= dy;
+                    }
+                    break;
+                    case 40:  // Down arrow was pressed
+                    if(y + dy < HEIGHT) {
+                        y += dy;
+                    }
+                    break;
+                    case 37:  // Left arrow was pressed
+                    if(x - dx > 0) {
+                        x -= dx;
+                    }
+                    break;
+                    case 39:  // Right arrow was pressed
+                    if(x + dx < WIDTH) {
+                        x += dx;
+                    }
+                    break;
+                    case 87:  // W was pressed
+                    if(my - mdy > 0) {
+                        my -= mdy;
+                    }
+                    break;
+                    case 83:  // S was pressed
+                    if(my + mdy < HEIGHT) {
+                        my += mdy;
+                    }
+                    break;
+                    case 65:  // A was pressed
+                    if(mx - mdx > 0) {
+                        mx -= mdx;
+                    }
+                    break;
+                    case 68:  // D was pressed
+                    if(mx + mdx < WIDTH) {
+                        mx += mdx;
+                    }
+                    break;
+                }
+              if(y == my && x == mx) {
+                  var collision_text = [];
+
+                  collision_text[0] = "boom...";
+                  collision_text[1] = "uuuugh";
+                  collision_text[2] = "Dammit, Muto.";
+                  collision_text[3] = "Learn to walk, dufus";
+                  collision_text[4] = "Put'em up.";
+                  collision_text[5] = "I love you too.";
+                  collision_text[6] = "I didn't see you there.";
+                  collision_text[7] = "Your breath stinks.";
+                  collision_text[8] = "scuse me  - Zach"; //zach
+                  collision_text[9] = "GET OUT OF MY WAY! - RC"; //ryan
+                  collision_text[10] = "I'm really sorry. - Taylor"; //taylor
+                  collision_text[11] = "What was that? - Taylor"; //taylor
+                  collision_text[12] = "Sorry. - Nick"; //nick
+                  collision_text[13] = "Bloody Hell! - Liam"; //liam
+                  collision_text[14] = "Oh, Bollocks! - Liam"; //liam
+
+                  var i = Math.floor(collision_text.length * Math.random());
+
+                  alert(collision_text[i]);
+                  window.location.reload();
+              }
+          }
+
+          function draw() {
+              clear();
+              wuto.fillStyle = "gray";
+              wuto.strokeStyle = "black";
+              rect(0,0,WIDTH,HEIGHT);
+              wuto.fillStyle = "blue";
+              circle(x, y, 10); //character one
+
+              muto.fillStyle = "gray";
+              muto.strokeStyle = "black";
+              muto.fillStyle = "white";
+              circle2(x, y, 10); //character two
+
+          }
+
+          init();
+          window.addEventListener('keydown',doKeyDown,true);
+        </script>
+  </section>
+</body>
+</html>
